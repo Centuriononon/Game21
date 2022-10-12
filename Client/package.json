@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/Centuriononon/Game21#readme",
   "dependencies": {
-    "autoprefixer": "^10.4.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -33,10 +32,14 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.8",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
+    "autoprefixer": "^10.4.12",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^5.0.2",
     "html-webpack-plugin": "^5.1.0",
+    "node-sass-import": "^2.0.1",
+    "sass": "^1.55.0",
+    "sass-loader": "13.1.0",
     "style-loader": "^2.0.0",
     "ts-loader": "^9.4.1",
     "typescript": "^4.1.5",

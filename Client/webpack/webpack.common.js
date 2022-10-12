@@ -1,6 +1,17 @@
 const path = require('path');
 const HtmlPlugin = require('html-webpack-plugin');
 
+const cssLoader = {
+    loader: require.resolve('css-loader'),
+    options: {
+        sourceMap: true,
+        importLoaders: 1,
+        modules: {
+            localIdentName: '[name]_[local]__[hash:base64:4]'
+        }
+    }
+}
+
 module.exports = {
     entry: './src/index.tsx',
     plugins: [
@@ -31,7 +42,7 @@ module.exports = {
             },
             {
                 test: /\.s[ac]ss$/i,
-                use: ["style-loader", "css-loader", "sass-loader"]
+                use: ["style-loader", cssLoader, "sass-loader"]
             },
             {
                 test: /\.(png|jpg|jpeg|gif)$/i,
@@ -48,7 +59,7 @@ module.exports = {
     },
     output: {
         filename: "[name].bundle.js",
-        path: path.resolve(__dirname, "dist"),
+        path: path.resolve(__dirname, "..", "..dist"),
         assetModuleFilename: 'assets/[hash][ext][query]',
         clean: true
     }
