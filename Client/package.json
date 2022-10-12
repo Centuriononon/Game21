@@ -4,7 +4,9 @@
   "description": "It is Game21's client",
   "main": "index.ts",
   "scripts": {
-    "test": "test"
+    "dev": "webpack serve --config webpack/webpack.config.js --env env=dev",
+    "prod": "webpack --config webpack/webpack.config.js --env env=prod",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,32 @@
   "bugs": {
     "url": "https://github.com/Centuriononon/Game21/issues"
   },
-  "homepage": "https://github.com/Centuriononon/Game21#readme"
+  "homepage": "https://github.com/Centuriononon/Game21#readme",
+  "dependencies": {
+    "autoprefixer": "^10.4.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "@babel/preset-env": "^7.12.16",
+    "@babel/preset-react": "^7.12.13",
+    "@babel/preset-typescript": "^7.12.16",
+    "@babel/runtime": "^7.13.10",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.8",
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.1",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.0.2",
+    "html-webpack-plugin": "^5.1.0",
+    "style-loader": "^2.0.0",
+    "ts-loader": "^9.4.1",
+    "typescript": "^4.1.5",
+    "webpack": "^5.21.2",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^4.11.1",
+    "webpack-merge": "^5.7.3"
+  }
 }
