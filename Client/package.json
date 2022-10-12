@@ -1,0 +1,19 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "It is Game21's client",
+  "main": "index.ts",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Centuriononon/Game21.git"
+  },
+  "author": "Centurion&Ego",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Centuriononon/Game21/issues"
+  },
+  "homepage": "https://github.com/Centuriononon/Game21#readme"
+}
