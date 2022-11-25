@@ -1,20 +1,31 @@
-import express from 'express';
 import { config } from 'dotenv';
-config();
+import express from 'express';
+import http from 'http';
+import cookieParser from 'cookie-parser';
+import expressWs from 'express-ws';
 
-const port = 5055 ?? process.env.PORT;
+config(); // .env
 
+const port = process.env.PORT ?? 5055;
 const app = express();
+const server = new http.Server(app);
+expressWs(app, server); // Mount method for route ws connections
 
+// Routes
+const sessionRouter = express.Router();
+
+sessionRouter.ws('/session', (ws) => {
+    ws.on('message', (m) => ws.send(m));
+})
+
+// Middlewares
 app.use(express.json());
+app.use(cookieParser());
+app.use('/', (req, res) => res.end())
+app.use('/api', sessionRouter);
 
-const run = async () => {
-	try {
-		app.listen({ port });
-	} catch (err) {
-		console.log(err);
-		process.exit(1);
-	}
-};
-
-run();
+// Listen port
+const serverStartHandler = () => {
+	console.log('============= Server started ===============\nPort:', port);
+}
+server.listen({ port }, serverStartHandler);
