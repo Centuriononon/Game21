@@ -1,5 +1,6 @@
-import { MessageEvent } from 'ws';
-export type MessageEventHandler = (ev: MessageEvent) => void
+import WebSocket from 'ws';
+
+export type MessageEventHandler = (ev: WebSocket.MessageEvent) => void;
 
 export default interface IClient {
     send: (m: any) => void;

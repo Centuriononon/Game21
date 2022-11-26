@@ -1,11 +1,20 @@
+import { randomUUID } from "crypto";
 import IClient from "../client/client.interface";
 
 export default class Session {
     private clients: IClient[] = [];
+    private _id = randomUUID();
+
     constructor() {};
 
-    addClient(c: IClient) {
+    connect(c: IClient) {
         this.clients = [...this.clients, c];
-        c.subMessageEvent((e) => c.send(e))
+        c.subMessageEvent(({ data }) => {
+            c.send(data)
+        });
     };
+
+    id() {
+        return this._id;
+    }
 }

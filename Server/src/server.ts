@@ -1,34 +1,31 @@
 import { config } from 'dotenv';
-import express from 'express';
-import http from 'http';
+import express, { Request } from 'express';
 import cookieParser from 'cookie-parser';
-import expressWs from 'express-ws';
+import instanceWS from 'express-ws';
 import Client from './core/client/client';
 import Session from './core/session/session';
+import { WebSocket } from 'ws';
 
 config(); // .env
 
 const port = process.env.PORT ?? 5055;
-const app = express();
-const server = new http.Server(app);
-expressWs(app, server); // Mount method for route ws connections
+const { app } = instanceWS(express());
 
 // Connection Route
-const sessionRouter = express.Router();
-
 const session = new Session();
-sessionRouter.ws('/session', (ws) => {
-    session.addClient(new Client(ws))
-});
+
+const wsConnectionHandler = (ws: WebSocket, req: Request) => {
+    session.connect(new Client(ws))
+}
+app.ws('/api/session', wsConnectionHandler)
 
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
 app.use('/', (req, res) => res.end())
-app.use('/api', sessionRouter);
 
 // Listen port
 const serverStartHandler = () => {
 	console.log('============= Server started ===============\nPort:', port);
 }
-server.listen({ port }, serverStartHandler);
+app.listen({ port }, serverStartHandler);
