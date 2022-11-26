@@ -5,6 +5,7 @@ import instanceWS from 'express-ws';
 import Client from './core/client/client';
 import Session from './core/session/session';
 import { WebSocket } from 'ws';
+import { isNumberObject } from 'util/types';
 
 config(); // .env
 
@@ -15,9 +16,12 @@ const { app } = instanceWS(express());
 const session = new Session();
 
 const wsConnectionHandler = (ws: WebSocket, req: Request) => {
-    session.connect(new Client(ws))
+    const id = req.query.id;
+    console.log(id)
+    if (id) session.connect(new Client(ws))
+    
 }
-app.ws('/api/session', wsConnectionHandler)
+app.ws('/session', wsConnectionHandler)
 
 // Middlewares
 app.use(express.json());
