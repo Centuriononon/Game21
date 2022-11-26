@@ -7,7 +7,7 @@ export default class Session {
 
     constructor() {};
 
-    connect(c: IClient) {
+    enter(c: IClient) {
         this.clients = [...this.clients, c];
         c.subMessageEvent(({ data }) => {
             c.send(data)

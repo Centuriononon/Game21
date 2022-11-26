@@ -1,35 +1,44 @@
 import { config } from 'dotenv';
-import express, { Request } from 'express';
+import express from 'express';
 import cookieParser from 'cookie-parser';
-import instanceWS from 'express-ws';
-import Client from './core/client/client';
-import Session from './core/session/session';
 import { WebSocket } from 'ws';
-import { isNumberObject } from 'util/types';
+import { Server as WSServer } from 'ws';
+import { createServer, IncomingMessage } from 'http';
+import url from 'url';
 
 config(); // .env
 
 const port = process.env.PORT ?? 5055;
-const { app } = instanceWS(express());
-
-// Connection Route
-const session = new Session();
-
-const wsConnectionHandler = (ws: WebSocket, req: Request) => {
-    const id = req.query.id;
-    console.log(id)
-    if (id) session.connect(new Client(ws))
-    
-}
-app.ws('/session', wsConnectionHandler)
+const app = express();
+const server = createServer(app);
+const wss = new WSServer({ noServer: true });
 
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
-app.use('/', (req, res) => res.end())
+
+const connectionHandler = (sessionId: string, ws: WebSocket) => {
+    console.log('connection')
+    console.log('session id is', sessionId)
+}
+
+server.on('upgrade', (request, socket, head) => {
+    const parsed = url.parse(request.url || '', true);
+    const id = String(parsed.query.id);
+    const pathname = parsed.pathname;
+
+    if (pathname === '/session' && id) {
+        wss.handleUpgrade(
+            request, socket, head, 
+            (ws) => connectionHandler(id, ws)
+        );
+    };
+})
+
+
 
 // Listen port
 const serverStartHandler = () => {
 	console.log('============= Server started ===============\nPort:', port);
 }
-app.listen({ port }, serverStartHandler);
+server.listen({ port }, serverStartHandler);
