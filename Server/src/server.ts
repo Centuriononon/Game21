@@ -3,8 +3,8 @@ import express from 'express';
 import http from 'http';
 import cookieParser from 'cookie-parser';
 import expressWs from 'express-ws';
-import Client from './modules/client/client';
-import Session from './modules/session/session';
+import Client from './core/client/client';
+import Session from './core/session/session';
 
 config(); // .env
 
