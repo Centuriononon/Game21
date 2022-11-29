@@ -1,5 +1,5 @@
 import { WebSocket } from 'ws';
-import IClient, { MessageEventHandler } from './client.interface';
+import IClient, { MessageEventHandler } from '../../core/client.interface';
 
 export default class Client implements IClient {
     constructor(private ws: WebSocket) {}
