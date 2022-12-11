@@ -19,7 +19,5 @@ const appServer = new Server(
 app.use(express.json());
 app.use(cookieParser());
 
-// Listen port
-appServer.run(port, () => {
-    console.log('============= Server Started ===============\nPort:', port);
-})
+// Run
+appServer.run(port, () => console.log('============= Server Started ===============\nPort:', port));
