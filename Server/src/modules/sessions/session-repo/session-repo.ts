@@ -10,8 +10,6 @@ export default class SessionRepo implements ISessionRepo {
         const noSession = !this.sessions.has(id);
 
         if (noSession) this.sessions.set(id, s);
-
-        return noSession;
     };
 
     has(id: string) {

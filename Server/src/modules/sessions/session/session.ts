@@ -16,8 +16,6 @@ export default class Session implements ISession {
         c.subMessageEvent(({ data }) => {
             c.send(data)
         });
-
-        return true;
     };
 
     id() { return this._id };
