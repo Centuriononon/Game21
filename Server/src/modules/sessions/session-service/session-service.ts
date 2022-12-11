@@ -3,6 +3,7 @@ import WebSocket from "ws";
 import ISessionService from "./session-service.interface";
 import Session from "../session/session";
 import SessionRepo from "../session-repo/session-repo";
+import ISession from "../session/session.interface";
 
 export default class SessionService implements ISessionService {
     private repo = new SessionRepo();
@@ -17,10 +18,7 @@ export default class SessionService implements ISessionService {
         };
     };
 
-    createSession(handleSessionID: (id: string) => void) {
-        const session = new Session([]); 
-        this.repo.add(session);
-
-        handleSessionID(session.id());
-    };
+    // addSession(s: ISession) {
+    //     this.repo.add(s);
+    // };
 };
