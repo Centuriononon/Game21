@@ -1,11 +1,11 @@
 import http, { IncomingMessage } from "http";
 import ws from 'ws';
 import { parse as parseUrl } from 'url';
-import IServer from "./server.interface";
+import IAppServer from "./app-server.interface";
 import ISessionService from "../sessions/session-service/session-service.interface";
 import { Duplex } from "stream";
 
-export class Server implements IServer {
+export class AppServer implements IAppServer {
     private _wss: ws.Server;
 
     constructor(

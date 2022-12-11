@@ -1,8 +1,8 @@
 import { config as initDotenv} from 'dotenv';
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import { createServer } from 'http';
-import { Server } from './modules/server/server';
+import { Server as ServerHTTP } from 'http';
+import { AppServer } from './modules/app-server/app-server';
 import SessionService from './modules/sessions/session-service/session-service';
 
 initDotenv();
@@ -10,8 +10,8 @@ initDotenv();
 const port = +process.env.PORT || 5055;
 const app = express();
 
-const appServer = new Server(
-    createServer(app),
+const appServer = new AppServer(
+    new ServerHTTP(app),
     new SessionService()
 );
 
