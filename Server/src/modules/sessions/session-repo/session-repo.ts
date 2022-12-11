@@ -19,6 +19,6 @@ export default class SessionRepo implements ISessionRepo {
     };
 
     session(id: string) {
-        return this.sessions.get(id);
+        return this.sessions?.get(id);
     };
 };
