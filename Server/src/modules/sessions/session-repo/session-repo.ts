@@ -7,7 +7,7 @@ export default class SessionRepo implements ISessionRepo {
 
     append(s: ISession) {
         const id = s.id();
-        const noSession = !this.sessions.has(id);
+        const noSession = !this.has(id);
 
         if (noSession) this.sessions.set(id, s);
     };
@@ -17,6 +17,6 @@ export default class SessionRepo implements ISessionRepo {
     };
 
     session(id: string) {
-        return this.sessions?.get(id);
+        return this.sessions.get(id);
     };
 };

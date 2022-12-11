@@ -14,7 +14,7 @@ export default class SessionService implements ISessionService {
 
         if (hasSession) {
             const client = new Client(ws);
-            this.repo.session(id)?.enter(client);
+            this.repo.session(id).enter(client);
         };
     };
 
