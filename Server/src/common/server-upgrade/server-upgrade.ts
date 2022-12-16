@@ -1,10 +1,10 @@
 import { IncomingMessage } from 'http';
 import { UrlWithParsedQuery } from 'url';
 import { Duplex } from "stream";
-import IWSUpgrade from "./ws-upgrade.interface";
+import IWSUpgrade from "./server-upgrade.interface";
 import ParsedURL from 'common/parsed-url/parsed-url';
 
-export default class WSUpgrade implements IWSUpgrade {
+export default class ServerUpgrade implements IWSUpgrade {
     private readonly _url: UrlWithParsedQuery;
     private readonly _socket: Duplex;
 

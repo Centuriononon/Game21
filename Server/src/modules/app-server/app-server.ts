@@ -3,7 +3,7 @@ import ws from 'ws';
 import IAppServer from "./app-server.interface";
 import ISessionService from "../sessions/session-service/session-service.interface";
 import { Duplex } from "stream";
-import WSUpgrade from "common/ws-upgrade/ws-upgrade";
+import ServerUpgrade from "common/server-upgrade/server-upgrade";
 
 export class AppServer implements IAppServer {
     private _wss: ws.Server;
@@ -21,7 +21,7 @@ export class AppServer implements IAppServer {
             .listen({ port }, handler)
             .on('upgrade',  
                 (req: IncomingMessage, socket: Duplex, head: Buffer) => {
-                    const upgrade = new WSUpgrade(req, socket);
+                    const upgrade = new ServerUpgrade(req, socket);
                     const url = upgrade.url();
                     const   pathname    = url.pathname, 
                             id          = String(url.query.id);
