@@ -3,7 +3,7 @@ import ws from 'ws';
 import IAppServer from "./app-server.interface";
 import ISessionService from "../sessions/session-service/session-service.interface";
 import { Duplex } from "stream";
-import ServerUpgrade from "common/server-upgrade/server-upgrade";
+import ServerUpgrade from "../../common/server-upgrade/server-upgrade";
 
 export class AppServer implements IAppServer {
     private _wss: ws.Server;

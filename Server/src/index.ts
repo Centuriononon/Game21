@@ -3,6 +3,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import { Server as HTTPServer } from 'http';
 import { AppServer } from './modules/app-server/app-server';
+import SessionRepo from './modules/sessions/session-repo/session-repo';
 import SessionService from './modules/sessions/session-service/session-service';
 
 initDotenv();
@@ -12,7 +13,9 @@ const app = express();
 
 const appServer = new AppServer(
     new HTTPServer(app),
-    new SessionService()
+    new SessionService(
+        new SessionRepo()
+    )
 );
 
 // Middlewares

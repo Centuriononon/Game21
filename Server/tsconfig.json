@@ -15,9 +15,9 @@
       "outDir": "./dist",
       "allowJs": true,
 
-      "paths": {
-          // "@utils/*": ["utils/*"]
-      }
+      // "paths": {
+      //     "@utils/*": ["utils/*"]
+      // }
   },
   "exclude": ["node_modules"],
   "include": ["./src/**/*.ts"]

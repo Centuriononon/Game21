@@ -2,7 +2,7 @@ import { IncomingMessage } from 'http';
 import { UrlWithParsedQuery } from 'url';
 import { Duplex } from "stream";
 import IWSUpgrade from "./server-upgrade.interface";
-import ParsedURL from 'common/parsed-url/parsed-url';
+import ParsedURL from '../parsed-url/parsed-url';
 
 export default class ServerUpgrade implements IWSUpgrade {
     private readonly _url: UrlWithParsedQuery;
