@@ -2,7 +2,7 @@ import { config as initDotenv} from 'dotenv';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import { Server as HTTPServer } from 'http';
-import { AppServer } from './modules/app-server/app-server';
+import { AppServer } from './modules/server/server/app-server';
 import SessionRepo from './modules/sessions/session-repo/session-repo';
 import SessionService from './modules/sessions/session-service/session-service';
 
