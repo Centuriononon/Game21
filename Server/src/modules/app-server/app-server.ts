@@ -25,16 +25,19 @@ export class AppServer implements IAppServer {
                     const id = String(query.id);
                 
                     const isInvalid = pathname === '/session' && !!id;
-                    if (isInvalid) {
-                        socket.destroy();
-                        return;
-                    }
+                    if (isInvalid)
+                        return socket.destroy(new Error('Invalid connection format.'));
                     
                     const connect = this.sessionService.connect;
                     
                     this._wss.handleUpgrade(
                         req, socket, head,
-                        (ws) => connect(id, ws)
+                        (ws) => { 
+                            const unsuccessfully = connect(ws, id);
+
+                            if (unsuccessfully)
+                                ws.close(1008, 'Required session is not available or is closed.');
+                        }
                     );
                 }
             );

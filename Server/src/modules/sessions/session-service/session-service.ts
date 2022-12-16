@@ -8,16 +8,17 @@ export default class SessionService implements ISessionService {
     private repo = new SessionRepo();
     constructor() {}
 
-    connect(id: string, ws: WebSocket) {
+    connect(ws: WebSocket, id: string) {
         const session = this.repo.session(id);
+        const isOpen = session?.isOpen();
         
-        if (session) {
-            const client = new Client(ws);
-            session.enter(client);
-        };
+        if (isOpen)
+            session.enter(new Client(ws));
+
+        return isOpen;
     };
 
-    // addSession(s: ISession) {
-    //     this.repo.add(s);
-    // };
+    addSession(s: ISession) {
+        this.repo.add(s);
+    };
 };

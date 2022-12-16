@@ -5,11 +5,13 @@ export default class SessionRepo implements ISessionRepo {
     private sessions: Map<string, ISession> = new Map();
     constructor() {}
 
-    append(s: ISession) {
+    add(s: ISession) {
         const id = s.id();
         const noSession = !this.sessions.has(id);
 
         if (noSession) this.sessions.set(id, s);
+
+        return noSession;
     };
 
     session(id: string) {
