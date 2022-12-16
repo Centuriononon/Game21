@@ -4,6 +4,7 @@ import { parse as parseUrl } from 'url';
 import IAppServer from "./app-server.interface";
 import ISessionService from "../sessions/session-service/session-service.interface";
 import { Duplex } from "stream";
+import WSUpgrade from "common/ws-upgrade/ws-upgrade";
 
 export class AppServer implements IAppServer {
     private _wss: ws.Server;
@@ -21,9 +22,11 @@ export class AppServer implements IAppServer {
             .listen({ port }, handler)
             .on('upgrade',  
                 (req: IncomingMessage, socket: Duplex, head: Buffer) => {
-                    const { query, pathname } = parseUrl(req.url || '', true);
-                    const id = String(query.id);
-                
+                    const upgrade = new WSUpgrade(req, socket);
+                    const url = upgrade.url();
+                    const   pathname    = url.pathname, 
+                            id          = String(url.query.id);
+
                     const isInvalid = pathname === '/session' && !!id;
                     if (isInvalid)
                         return socket.destroy(new Error('Invalid connection format.'));
@@ -42,4 +45,6 @@ export class AppServer implements IAppServer {
                 }
             );
     };
+
+
 }
