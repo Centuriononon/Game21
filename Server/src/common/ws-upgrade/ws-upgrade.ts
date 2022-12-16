@@ -17,7 +17,7 @@ export default class WSUpgrade implements IWSUpgrade {
         return this._url;
     };
 
-    destroy() {
-        this._socket
+    destroy(err: Error) {
+        this._socket.destroy(err)
     };
 }

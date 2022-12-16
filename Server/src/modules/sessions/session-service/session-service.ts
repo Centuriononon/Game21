@@ -1,24 +1,16 @@
 import Client from "../../client/client";
-import WebSocket from "ws";
 import ISessionService from "./session-service.interface";
-import SessionRepo from "../session-repo/session-repo";
-import ISession from "../session/session.interface";
+import StatusSessionConnection from "../connection/status-session-connection/status-session-connection";
+import ISessionRepo from "../session-repo/session-repo.interface";
+import { WebSocket } from "ws";
 
 export default class SessionService implements ISessionService {
-    private repo = new SessionRepo();
-    constructor() {}
+    constructor(private readonly repo: ISessionRepo) {}
 
-    connect(ws: WebSocket, id: string) {
-        const session = this.repo.session(id);
-        const isOpen = session?.isOpen();
-        
-        if (isOpen)
-            session.enter(new Client(ws));
+    connect(ws: WebSocket, sessionID: string) {
+        const session = this.repo.session(sessionID);
+        const entered = session?.enter(new Client(ws));
 
-        return isOpen;
-    };
-
-    addSession(s: ISession) {
-        this.repo.add(s);
+        return new StatusSessionConnection(entered);
     };
 };

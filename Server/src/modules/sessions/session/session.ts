@@ -11,22 +11,17 @@ export default class Session implements ISession {
     };
   
     enter(c: IClient) {
-        const isOpen = this.isOpen();
-
+        const isOpen = this.clients.length <= 2;
         if (isOpen) {
             this.clients = [...this.clients, c];
 
             c.subMessageEvent(({ data }) => {
                 c.send(data)
             });
-        }
+        };
 
         return isOpen;
     };
-
-    isOpen() {
-        return this.clients.length <= 2;
-    }
 
     id() { return this._id };
 };

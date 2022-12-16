@@ -1,7 +1,6 @@
-import { WebSocket } from "ws"
-import ISession from "../session/session.interface";
+import { WebSocket } from "ws";
+import IStatusSessionConnection from "../connection/status-session-connection/status-session-connection.interface";
 
 export default interface ISessionService {
-    connect: (ws: WebSocket, id: string) => boolean;
-    // addSession: (s: ISession) => void;
+    connect: (ws: WebSocket, sessionID: string) => IStatusSessionConnection;
 }

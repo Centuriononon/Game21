@@ -1,6 +1,5 @@
 import http, { IncomingMessage } from "http";
 import ws from 'ws';
-import { parse as parseUrl } from 'url';
 import IAppServer from "./app-server.interface";
 import ISessionService from "../sessions/session-service/session-service.interface";
 import { Duplex } from "stream";
@@ -28,17 +27,15 @@ export class AppServer implements IAppServer {
                             id          = String(url.query.id);
 
                     const isInvalid = pathname === '/session' && !!id;
-                    if (isInvalid)
-                        return socket.destroy(new Error('Invalid connection format.'));
-                    
-                    const connect = this.sessionService.connect;
+                    if (isInvalid) 
+                        return upgrade.destroy(new Error('Invalid connection format.'));
                     
                     this._wss.handleUpgrade(
                         req, socket, head,
                         (ws) => { 
-                            const unsuccessfully = connect(ws, id);
+                            const status = this.sessionService.connect(ws, id);
 
-                            if (unsuccessfully)
+                            if (!status.successful())
                                 ws.close(1008, 'Required session is not available or is closed.');
                         }
                     );
