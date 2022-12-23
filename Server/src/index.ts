@@ -13,6 +13,11 @@ initDotenv();
 const port = +process.env.PORT || 5055;
 const app = express();
 
+// Middlewares
+app.use(express.json());
+app.use(cookieParser());
+
+// Server
 const appServer = new AppServer(
     new HTTPServer(app),
     new AppService(
@@ -22,10 +27,6 @@ const appServer = new AppServer(
     ),
     new WSService()
 );
-
-// Middlewares
-app.use(express.json());
-app.use(cookieParser());
 
 // Run
 appServer.run(port, () => console.log('============= Server Started ===============\nPort:', port));
