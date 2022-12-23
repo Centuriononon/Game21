@@ -14,18 +14,17 @@ export default class Server implements IServer {
     ) {};
 
     run(port: number, handler: () => void) {
+        const instanceWS = this.wsService.ws;
+
         this.server
             .listen({ port }, handler)
             .on('upgrade',  
-                async (request: IncomingMessage, socket: Duplex, head: Buffer) => {
-                    const ws = await this.wsService.ws(request, socket, head);
-                    const connection = new SessionConnection(ws);
-
-                    if (connection.valid())
-                        this.service.connectToSession(connection)
-                    else 
-                        socket.destroy(new Error('Invalid connection.'));
-                }
+                async (request: IncomingMessage, socket: Duplex, head: Buffer) => 
+                    this.service.connectToSession(
+                        new SessionConnection(
+                            await instanceWS(request, socket, head)
+                        )
+                    )
             );
     };
 };

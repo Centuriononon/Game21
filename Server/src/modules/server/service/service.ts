@@ -10,6 +10,9 @@ export default class Service implements IService {
         const client = new Client(connection.ws());
         const sessionID = connection.sessionID();
 
-        this.sessionService.connect(client, sessionID);
+        if (connection.valid())
+            this.sessionService.connect(client, sessionID);
+        else 
+            connection.reject();
     };
 };

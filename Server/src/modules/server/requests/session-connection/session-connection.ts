@@ -1,5 +1,4 @@
 import ParsedURL from '../../../../common/parsed-url/parsed-url';
-import { IncomingMessage } from 'http';
 import ISessionConnection from "./session-connection.interface";
 import { WebSocket } from 'ws';
 
@@ -22,5 +21,9 @@ export default class SessionConnection implements ISessionConnection {
 
     ws() {
         return this._ws;
+    };
+
+    reject() {
+        this._ws.close(1008);
     };
 };
