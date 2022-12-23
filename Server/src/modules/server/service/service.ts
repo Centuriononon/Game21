@@ -11,9 +11,12 @@ export default class Service implements IService {
             const client = new Client(connection.ws());
             const sessionID = connection.sessionID();
 
-            this.sessionService.connect(client, sessionID);
+            const status = this.sessionService.connect(client, sessionID);
+
+            if (!status.successful())
+                connection.reject('The required session is not available.');
         }
         else 
-            connection.reject();
+            connection.reject('Invalid connection format.');
     };
 };

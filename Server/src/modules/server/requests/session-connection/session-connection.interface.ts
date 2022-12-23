@@ -4,5 +4,5 @@ export default interface ISessionConnection {
     valid: () => boolean;
     sessionID: () => string;
     ws: () => WebSocket;
-    reject: () => void;
+    reject: (test?: string) => void;
 }

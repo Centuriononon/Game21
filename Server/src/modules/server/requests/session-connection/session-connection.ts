@@ -23,7 +23,7 @@ export default class SessionConnection implements ISessionConnection {
         return this._ws;
     };
 
-    reject() {
-        this._ws.close(1008);
+    reject(text?: string) {
+        this._ws.close(1008, text || '');
     };
 };
