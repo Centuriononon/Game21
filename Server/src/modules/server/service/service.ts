@@ -7,11 +7,12 @@ export default class Service implements IService {
     constructor(private sessionService: ISessionService) {};
 
     connectToSession(connection: ISessionConnection) {
-        const client = new Client(connection.ws());
-        const sessionID = connection.sessionID();
+        if (connection.valid()) {
+            const client = new Client(connection.ws());
+            const sessionID = connection.sessionID();
 
-        if (connection.valid())
             this.sessionService.connect(client, sessionID);
+        }
         else 
             connection.reject();
     };
