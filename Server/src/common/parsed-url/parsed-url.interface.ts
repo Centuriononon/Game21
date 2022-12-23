@@ -1,6 +1,7 @@
-import { UrlWithParsedQuery } from 'url';
+import { ParsedUrlQuery } from "querystring";
 
 export default interface IParsedURL {
-    url: () => UrlWithParsedQuery;
+    route: () => string;
+    query: () => ParsedUrlQuery;
 };
 

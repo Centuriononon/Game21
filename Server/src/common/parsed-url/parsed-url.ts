@@ -9,8 +9,12 @@ export default class ParsedURL implements IParsedURL {
         this._url = parseUrl(url || '', true);
     };
 
-    url() {
-        return this._url;
+    query() {
+        return this._url.query;
+    };
+
+    route() {
+        return this._url.pathname;
     };
 };
 
