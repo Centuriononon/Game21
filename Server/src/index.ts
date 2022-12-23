@@ -29,4 +29,9 @@ const appServer = new AppServer(
 );
 
 // Run
-appServer.run(port, () => console.log('============= Server Started ===============\nPort:', port));
+try {
+    appServer.run(port, `Server is up and running at port ${port} 🚀`);
+} catch (er) {
+    console.log('Server was not successfully started 💥');
+    throw er;
+};

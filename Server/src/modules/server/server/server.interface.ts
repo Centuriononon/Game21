@@ -1,3 +1,3 @@
 export default interface IServer {
-    run: (port: number, handler: () => void) => void;
+    run: (port: number, log: string) => void;
 }

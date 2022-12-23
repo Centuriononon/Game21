@@ -13,11 +13,11 @@ export default class Server implements IServer {
         private readonly wsService: IWSService
     ) {};
 
-    run(port: number, cb: () => void) {
+    run(port: number, log: string) {
         const instanceWS = this.wsService.ws;
 
         this.server
-            .listen({ port }, cb)
+            .listen({ port }, () => console.log(log))
             .on('upgrade',  
                 async (request: IncomingMessage, socket: Duplex, head: Buffer) => 
                     this.service.connectToSession(
