@@ -36,6 +36,6 @@ export default class Server implements IServer {
                     console.info('Error:\n', err);
                     process.exit(1);
                 }
-            )
+            );
     };
 };

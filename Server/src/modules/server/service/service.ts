@@ -1,4 +1,3 @@
-import ParsedURL from '../../../common/parsed-url/parsed-url';
 import Client from "../../client/client";
 import ISessionService from "../../sessions/session-service/session-service.interface";
 import IService from "./service.interface";

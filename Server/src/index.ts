@@ -29,9 +29,10 @@ const appServer = new AppServer(
 );
 
 // Run
-try {
-    appServer.run(port, `Server is up and running at port ${port} 🚀`);
-} catch (er) {
-    console.log('Server was not successfully started 💥');
-    throw er;
-};
+appServer.run(port, `Server is up and running at port ${port} 🚀`);
+
+process.on('uncaughtException', err => {
+    console.error('Application got an uncaught error! 💢');
+    console.info('Error:\n', err);
+    process.exit(1);
+});
