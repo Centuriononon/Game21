@@ -1,5 +1,8 @@
-import ISessionConnection from '../requests/session-connection/session-connection.interface';
+import IServerUpgrade from "../requests/server-upgrade/server-upgrade.interface";
 
 export default interface IService {
-    connectToSession: (connection: ISessionConnection) => void;
+    /** 
+    * @throws {Error}
+    */
+    connectToSession: (upgrade: IServerUpgrade, sessionID: string) => void;
 }

@@ -10,11 +10,14 @@ export default class SessionRepo implements ISessionRepo {
         const noSession = !this.sessions.has(id);
 
         if (noSession) this.sessions.set(id, s);
-
-        return noSession;
     };
 
     session(id: string) {
-        return this.sessions.get(id);
+        const session = this.sessions.get(id);
+
+        if (session)
+            return session;
+        else 
+            throw 'There is no required session';
     };
 };

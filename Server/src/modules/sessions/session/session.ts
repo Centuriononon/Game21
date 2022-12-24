@@ -10,17 +10,18 @@ export default class Session implements ISession {
         this.clients = clients;
     };
   
-    enter(c: IClient) {
+    connect(c: IClient) {
         const isOpen = this.clients.length <= 2;
+
         if (isOpen) {
             this.clients = [...this.clients, c];
 
             c.subMessageEvent(({ data }) => {
                 c.send(data)
             });
-        };
-
-        return isOpen;
+        }
+        else 
+            throw "The required session is closed.";
     };
 
     id() { return this._id };

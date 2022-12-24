@@ -1,22 +1,25 @@
+import ParsedURL from '../../../common/parsed-url/parsed-url';
 import Client from "../../client/client";
 import ISessionService from "../../sessions/session-service/session-service.interface";
 import IService from "./service.interface";
-import ISessionConnection from "../requests/session-connection/session-connection.interface";
+import IServerUpgrade from "../requests/server-upgrade/server-upgrade.interface";
 
 export default class Service implements IService {
     constructor(private sessionService: ISessionService) {};
 
-    connectToSession(connection: ISessionConnection) {
-        if (connection.valid()) {
-            const client = new Client(connection.ws());
-            const sessionID = connection.sessionID();
+    connectToSession(upgrade: IServerUpgrade, sessionID: string) {
+        const ws = upgrade.socket();
 
-            const status = this.sessionService.connect(client, sessionID);
-
-            if (!status.successful())
-                connection.reject('The required session is not available.');
-        }
-        else 
-            connection.reject('Invalid connection format.');
+        try {
+            const client = new Client(ws);
+            this.sessionService.connect(client, sessionID);
+        } catch (e) {
+            if (typeof e === 'string') {
+                ws.close(1008, e);
+            } else {
+                ws.close(0, 'Something went wrong.');
+                throw e
+            }
+        };
     };
 };
