@@ -33,7 +33,7 @@ export default class Server implements IServer {
             .on('error', 
                 err => {
                     console.error('Server running is crashed 💥');
-                    console.info('Error:\n', err);
+                    console.log(err);
                     process.exit(1);
                 }
             );

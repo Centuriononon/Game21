@@ -18,6 +18,6 @@ export default class SessionRepo implements ISessionRepo {
         if (session)
             return session;
         else 
-            throw 'There is no required session';
+            throw new Error('There is no required session');
     };
 };

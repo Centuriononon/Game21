@@ -13,8 +13,8 @@ export default class Service implements IService {
             const client = new Client(ws);
             this.sessionService.connect(client, sessionID);
         } catch (e) {
-            if (typeof e === 'string') {
-                ws.close(1008, e);
+            if (e instanceof Error) {
+                ws.close(1008, e.message);
             } else {
                 ws.close(0, 'Something went wrong.');
                 throw e

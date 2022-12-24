@@ -33,6 +33,6 @@ appServer.run(port, `Server is up and running at port ${port} 🚀`);
 
 process.on('uncaughtException', err => {
     console.error('Application got an uncaught error! 💢');
-    console.info('Error:\n', err);
+    console.log(err);
     process.exit(1);
 });

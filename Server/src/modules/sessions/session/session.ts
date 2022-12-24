@@ -21,7 +21,7 @@ export default class Session implements ISession {
             });
         }
         else 
-            throw "The required session is closed.";
+            throw new Error("The required session is closed.");
     };
 
     id() { return this._id };
