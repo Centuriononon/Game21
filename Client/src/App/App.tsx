@@ -1,15 +1,16 @@
-import {FC} from 'react';
-import StartMenu from '../Components/StartMenu/SartMenu';
-import style from './App.module.scss';
+import { FC } from "react";
+import { BrowserRouter } from "react-router-dom";
+import Board from "./Components/Board/Board";
+import "./Style/App.scss";
 
 interface AppProps {}
 
 const App: FC<AppProps> = () => {
-    return(
-            <div className={style.App}>
-                <StartMenu />
-            </div>
-    )
-}
+    return (
+        <BrowserRouter>
+            <Board />
+        </BrowserRouter>
+    );
+};
 
 export default App;

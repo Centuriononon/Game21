@@ -19,8 +19,10 @@
   },
   "homepage": "https://github.com/Centuriononon/Game21#readme",
   "dependencies": {
+    "mobx": "^6.7.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
